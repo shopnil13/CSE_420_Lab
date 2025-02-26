@@ -9,6 +9,7 @@ ofstream yyoutlog; //output filestream for log file
 string loglist = ""; //list of tokens along with line numbers
 
 // define necessary c++ variables and functions here (if any)
+
 int lines = 1;
 
 %}
@@ -17,16 +18,19 @@ int lines = 1;
 
 delim	 [ \t\v\r]
 
-/* write regular expressions for whitespace and newline */
-ws		 
 
-newline  
+/* write regular expressions for whitespace and newline */
+{ws}       { /* Ignore whitespace */ }
+
+{newline}  { lines++; }
 
 letter_	 [A-Za-z_]
 digit	 [0-9]
 
 /* write regular expressions for id, float and integers */
-id		 
+id         {letter}({letter}|{digit})*
+integer    {digit}+
+floating   {digit}+\.({digit})*([eE][-+]?{digit}+)?	 
 
 
 %%
